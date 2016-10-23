@@ -1,0 +1,35 @@
+<div [(ngModel)]="showLast10" ngbRadioGroup name="showLast10">
+    <label class="btn btn-primary"><input type="radio" [value]="true">Last 10</label>
+    <label class="btn btn-primary"><input type="radio" [value]="false">All</label>
+</div>XX{{showLast10}}XX
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Datum</th>
+            <th>Bemerkung</th>
+            <th *ngFor="let n of [].constructor(18)" class="throws">{{$index + 1}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="2"></td>
+            <td>AVG</td>
+            <td *ngFor="let throwsForHole of avgRoundThrows">{{throwsForHole | number:'0.1-1'}}</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td>MIN</td>
+            <td *ngFor="let throwsForHole of minRoundThrows">{{throwsForHole}}</td>
+        </tr>
+        <tr *ngFor="let round of rounds | slice:0:lineLimit; let roundIndex = index">
+            <td>{{roundIndex + 1 + showOffset}}</td>
+            <td>{{round.date}}</td>
+            <td>{{round.note}}</td>
+            <td *ngFor="let throwsForHole of round.throws; let holeIndex = index" 
+                style="background-color: {{calcColor(round, holeIndex)}}">
+                {{throwsForHole}}
+            </td>
+        </tr>
+    </tbody>
+</table>
