@@ -13,18 +13,22 @@ body {
   color: var(--colorfont);
 }
 
+body * {
+  font-size: 1rem;
+}
+
 thead tr,
 tbody tr:nth-child(even) {
   background-color: var(--colorbg2);
 }
 
 .table {
-  width: 0%;
+  width: 1px;
   margin: 20px;
 }
 
 .table .throws {
-  width: 2em;
+  width: 2rem;
 }
 
 .good {
