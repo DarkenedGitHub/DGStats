@@ -1,0 +1,44 @@
+/* app css stylesheet */
+
+:root {
+  --colorbg: #001B57;
+  --colorbg2: #26417D;
+  --colorfont: #FFFFFF;
+  colorhl: #B33B00;
+  colorhl2: #8D1500;
+}
+
+body {
+  background-color: var(--colorbg);
+  color: var(--colorfont);
+}
+
+body * {
+  font-size: 1rem;
+}
+
+thead tr,
+tbody tr:nth-child(even) {
+  background-color: var(--colorbg2);
+}
+
+.table {
+  width: 1px;
+  margin: 20px;
+}
+
+.table .throws {
+  width: 2rem;
+}
+
+.good {
+  background-color: green;
+}
+
+.bad {
+  background-color: red;
+}
+
+.best {
+  background-color: limegreen;
+}
