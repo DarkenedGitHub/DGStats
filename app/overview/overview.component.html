@@ -1,7 +1,11 @@
-<div [(ngModel)]="showLast10" ngbRadioGroup name="showLast10" (ngModelChange)="updateData()">
-    <label class="btn btn-primary"><input type="radio" [value]="true">Last 10</label>
-    <label class="btn btn-primary"><input type="radio" [value]="false">All</label>
+<div class="topbar">
+    <div [(ngModel)]="showLast10" ngbRadioGroup name="showLast10" (ngModelChange)="updateData()">
+        <label class="btn btn-primary"><input type="radio" [value]="true">Last 10</label>
+        <label class="btn btn-primary"><input type="radio" [value]="false">All</label>
+    </div>
+    <span>Startup-Time: {{loadTime}} ms</span>
 </div>
+
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>

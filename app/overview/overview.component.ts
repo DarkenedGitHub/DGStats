@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 @Component({
@@ -15,8 +15,10 @@ export class OverviewComponent implements OnInit {
     maxRoundThrows;
     allRounds;
     colorMap;
+    loadTime;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, @Inject('DGStatsStartTime') private starttime: number) {
+        this.loadTime = new Date().getTime() - starttime;
     }
 
     ngOnInit() {
@@ -66,7 +68,6 @@ export class OverviewComponent implements OnInit {
     }
 
     updateData() {
-        console.log("modelchange");
         this.rounds = [];
         var rounds = this.showLast10 ? this.allRounds.slice(-10) : this.allRounds;
         // column metrics
