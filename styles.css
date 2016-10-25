@@ -11,10 +11,19 @@
 body {
   background-color: var(--colorbg);
   color: var(--colorfont);
+  padding-top: 3rem;
 }
 
 body * {
   font-size: 1rem;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--colorbg);
 }
 
 thead tr,
@@ -23,8 +32,8 @@ tbody tr:nth-child(even) {
 }
 
 .table {
-  width: 1px;
-  margin: 20px;
+  width: 0%;
+  margin: 0.5rem;
 }
 
 .table .throws {
