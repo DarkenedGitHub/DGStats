@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { OverviewService, Round } from './overview.service';
 
 @Component({
     moduleId: module.id,
@@ -8,17 +9,15 @@ import { Http, Response } from '@angular/http';
 })
 export class OverviewComponent implements OnInit {
     showLast10: boolean = false;
-    rounds;
-    showOffset;
-    minRoundThrows;
-    avgRoundThrows;
-    maxRoundThrows;
-    allRounds;
-    colorMap;
-    loadTime;
+    showOffset: number;
+    colorMap: string[];
+    loadTime: number;
+    allRounds: Round[];
 
-    constructor(private http: Http, @Inject('DGStatsStartTime') private starttime: number) {
+    constructor(private http: Http, private overviewService: OverviewService, @Inject('DGStatsStartTime') private starttime: number) {
         this.loadTime = new Date().getTime() - starttime;
+        this.allRounds = [];
+        this.updateData();
     }
 
     ngOnInit() {
@@ -30,31 +29,20 @@ export class OverviewComponent implements OnInit {
         var lineArray = textData.split('\r\n');
         this.allRounds = lineArray.map(function(line) {
             var values = line.split('\t');
-            return {
-                date: values[1],
-                note: values[2],
-                throws: values.slice(4)
-            };
+            return new Round(
+                new Date(values[1].split('.').reverse()),
+                values[2],
+                values.slice(4).map(strVal => +strVal));
         });
+        let holeCount = this.allRounds.map(round => round.throws.length).reduce((a, b) => Math.max(a, b));
+        this.overviewService.course = [];
+        for (let holeIndex = 0; holeIndex < holeCount; holeIndex++) {
+            this.overviewService.course.push(3);
+        }
         this.updateData();
     }
 
-    calcValidValues(rounds, extractor) {
-        return rounds
-            .map(function(round) { return parseInt(extractor(round)); })
-            .filter(function(value) { return !isNaN(value); });
-    }
-    calcByHoleMetric(rounds, reduction, finishing:any=false) {
-        if (!finishing) { finishing = function(x) { return x; }; }
-        var range = [];
-        for (; range.length < 18; range[range.length] = 0);
-        let component = this;
-        return range.map(function(hole, index) {
-            var throwCounts = component.calcValidValues(rounds, function(round) { return round.throws[index]; });
-            return finishing(throwCounts.reduce(reduction), throwCounts.length);
-        });
-    }
-    calcColor(throws, holeIndex) {
+    /*calcColor(throws, holeIndex) {
         if (isNaN(throws)) {
             return '';
         }
@@ -65,21 +53,15 @@ export class OverviewComponent implements OnInit {
         var greenVal = throws < avg ? maxLight : maxLight -  Math.round(maxLight * (throws - avg) / (max - avg));
         var redVal = throws > avg ? maxLight : maxLight -  Math.round(maxLight * (throws - avg) / (min - avg));
         return 'rgb(' + redVal + ', ' + greenVal + ', 0)';
-    }
+    }*/
 
     updateData() {
-        this.rounds = [];
-        var rounds = this.showLast10 ? this.allRounds.slice(-10) : this.allRounds;
-        // column metrics
-        this.avgRoundThrows = this.calcByHoleMetric(rounds,
-            function(sum, summand) { return sum + summand; }, 
-            function(reduced, count) { return reduced / count; }
-        );
-        this.minRoundThrows = this.calcByHoleMetric(rounds, function(a, b) { return Math.min(a, b); });
-        this.maxRoundThrows = this.calcByHoleMetric(rounds, function(a, b) { return Math.max(a, b); });
+        this.overviewService.rounds = (this.showLast10 && this.allRounds.length > 10) ? this.allRounds.slice(-10) : this.allRounds;
+        this.showOffset = this.allRounds.length - this.overviewService.rounds.length;
+        this.overviewService.calculateAllMetrics();
         // colors
         this.colorMap = [];
-        for (let roundIndex = 0; roundIndex < rounds.length; roundIndex++) {
+/*        for (let roundIndex = 0; roundIndex < rounds.length; roundIndex++) {
             this.colorMap[roundIndex] = [];
             for (let holeIndex = 0; holeIndex < this.minRoundThrows.length; holeIndex++) {
                 let throws = rounds[roundIndex].throws[holeIndex];
@@ -87,10 +69,7 @@ export class OverviewComponent implements OnInit {
                     this.colorMap[roundIndex][holeIndex] = this.calcColor(throws, holeIndex);
                 }
             }
-        }
-        // set model
-        this.rounds = rounds;
-        this.showOffset = this.allRounds.length - rounds.length;
+        }*/
     }
 
 }
