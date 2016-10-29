@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OverviewComponent } from './overview.component';
-import { OverviewService } from './overview.service';
+import { ResultsComponent } from './results.component';
+import { MetricService } from './services/metrics.service';
 
 @NgModule({
     imports: [ CommonModule, FormsModule, HttpModule, NgbModule ],
-    declarations: [ OverviewComponent ],
-    providers: [ OverviewService ],
-    exports: [ OverviewComponent ]
+    declarations: [ ResultsComponent ],
+    providers: [ MetricService ],
+    exports: [ ResultsComponent ]
 })
-export class OverviewModule {
+export class ResultsModule {
 
 }

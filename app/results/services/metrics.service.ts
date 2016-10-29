@@ -7,7 +7,7 @@ export class Round {
 }
 
 @Injectable()
-export class OverviewService {
+export class MetricService {
 
     private metrics: { [index: string]: Metric } = {};
     course: number[] = [];

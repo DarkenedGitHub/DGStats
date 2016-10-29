@@ -1,27 +1,27 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { OverviewService, Round } from './overview.service';
+import { MetricService, Round } from './services/metrics.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'overview',
-    templateUrl: 'overview.component.html'
+    selector: 'results',
+    templateUrl: 'results.component.html'
 })
-export class OverviewComponent implements OnInit {
+export class ResultsComponent implements OnInit {
     showLast10: boolean = false;
     showOffset: number;
     colorMap: string[];
     loadTime: number;
     allRounds: Round[];
 
-    constructor(private http: Http, private overviewService: OverviewService, @Inject('DGStatsStartTime') private starttime: number) {
+    constructor(private http: Http, private metricService: MetricService, @Inject('DGStatsStartTime') private starttime: number) {
         this.loadTime = new Date().getTime() - starttime;
         this.allRounds = [];
         this.updateData();
     }
 
     ngOnInit() {
-        this.http.get('app/overview/data.csv').subscribe(result => this.processCSVData(result));
+        this.http.get('app/data/data.csv').subscribe(result => this.processCSVData(result));
     }
 
     processCSVData(csvData: Response) {
@@ -35,9 +35,9 @@ export class OverviewComponent implements OnInit {
                 values.slice(4).map(strVal => +strVal));
         });
         let holeCount = this.allRounds.map(round => round.throws.length).reduce((a, b) => Math.max(a, b));
-        this.overviewService.course = [];
+        this.metricService.course = [];
         for (let holeIndex = 0; holeIndex < holeCount; holeIndex++) {
-            this.overviewService.course.push(3);
+            this.metricService.course.push(3);
         }
         this.updateData();
     }
@@ -56,9 +56,9 @@ export class OverviewComponent implements OnInit {
     }*/
 
     updateData() {
-        this.overviewService.rounds = (this.showLast10 && this.allRounds.length > 10) ? this.allRounds.slice(-10) : this.allRounds;
-        this.showOffset = this.allRounds.length - this.overviewService.rounds.length;
-        this.overviewService.calculateAllMetrics();
+        this.metricService.rounds = (this.showLast10 && this.allRounds.length > 10) ? this.allRounds.slice(-10) : this.allRounds;
+        this.showOffset = this.allRounds.length - this.metricService.rounds.length;
+        this.metricService.calculateAllMetrics();
         // colors
         this.colorMap = [];
 /*        for (let roundIndex = 0; roundIndex < rounds.length; roundIndex++) {
