@@ -37,7 +37,7 @@ tbody tr:nth-child(even) {
 }
 
 .table .throws {
-  width: 2rem;
+  min-width: 3rem;
 }
 
 .good {

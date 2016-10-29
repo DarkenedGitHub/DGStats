@@ -7,12 +7,12 @@ export class Round {
 }
 
 @Injectable()
-export class OverviewService {
+export class MetricsService {
 
     private metrics: { [index: string]: Metric } = {};
     course: number[] = [];
     rounds: Round[] = [];
-    readonly byHoleMetric : { [name: string] : number[] } = {};
+    byHoleMetric : { [name: string] : number[] } = {};
 
     constructor() {
         this.addMetric('par', (holeIndex, throws) => this.course[holeIndex]);
@@ -34,6 +34,7 @@ export class OverviewService {
     }
 
     calculateAllMetrics() {
+        this.byHoleMetric = {};
         for (let name in this.metrics) {
             this.byHoleMetric[name] = [];
             for (let holeIndex = 0; holeIndex < this.course.length; holeIndex++) {
