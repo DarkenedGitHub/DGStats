@@ -17,10 +17,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let metricName of overviewService.metricNames">
-            <td colspan="2"></td>
-            <td>{{metricName}}</td>
+            <td colspan="3">{{metricName}}</td>
             <td *ngFor="let par of overviewService.course; let holeIndex = index">
-                {{overviewService.byHoleMetric[metricName][holeIndex] | number:'1.1-1'}}
+                {{overviewService.byHoleMetric[metricName][holeIndex] | number:'1.0-1'}}
             </td>
         </tr>
         <tr *ngFor="let round of overviewService.rounds | slice:0:lineLimit; let roundIndex = index">
