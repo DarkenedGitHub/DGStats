@@ -12,22 +12,21 @@
             <th>#</th>
             <th>Datum</th>
             <th>Bemerkung</th>
-            <th *ngFor="let par of metricService.course; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+            <th *ngFor="let par of metricsService.course; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let metricName of metricService.metricNames">
+        <tr *ngFor="let metricName of metricsService.metricNames">
             <td colspan="3">{{metricName}}</td>
-            <td *ngFor="let par of metricService.course; let holeIndex = index">
-                {{metricService.byHoleMetric[metricName][holeIndex] | number:'1.0-1'}}
+            <td *ngFor="let par of metricsService.course; let holeIndex = index">
+                {{metricsService.byHoleMetric[metricName][holeIndex] | number:'1.0-1'}}
             </td>
         </tr>
-        <tr *ngFor="let round of metricService.rounds | slice:0:lineLimit; let roundIndex = index">
+        <tr *ngFor="let round of metricsService.rounds | slice:0:lineLimit; let roundIndex = index">
             <td>{{roundIndex + 1 + showOffset}}</td>
             <td>{{round.date | date:'dd.MM.yyyy'}}</td>
             <td>{{round.note}}</td>
-            <td *ngFor="let par of metricService.course; let holeIndex = index">
-                <!--[style.backgroundColor]="colorMap[roundIndex][holeIndex]">-->
+            <td *ngFor="let par of metricsService.course; let holeIndex = index" [style.backgroundColor]="colorMapService.colorMap[roundIndex][holeIndex]">
                 {{round.throws[holeIndex]}}
             </td>
         </tr>

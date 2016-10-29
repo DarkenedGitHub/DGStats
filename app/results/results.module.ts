@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultsComponent } from './results.component';
-import { MetricService } from './services/metrics.service';
+import { MetricsService } from './services/metrics.service';
+import { ColorMapService } from './services/colormap.service';
 
 @NgModule({
     imports: [ CommonModule, FormsModule, HttpModule, NgbModule ],
     declarations: [ ResultsComponent ],
-    providers: [ MetricService ],
+    providers: [ MetricsService, ColorMapService ],
     exports: [ ResultsComponent ]
 })
 export class ResultsModule {
