@@ -25,6 +25,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+      'mydatepicker': 'npm:mydatepicker',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -36,6 +37,10 @@
         defaultExtension: 'js'
       },
       'angular-in-memory-web-api': {
+        main: './index.js',
+        defaultExtension: 'js'
+      },
+      mydatepicker: {
         main: './index.js',
         defaultExtension: 'js'
       }
