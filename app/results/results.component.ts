@@ -90,4 +90,11 @@ export class ResultsComponent implements OnInit {
         delete this.editingRound;
     }
 
+    removeRound(roundIndex: number) {
+        if (confirm("really delete this?")) {
+            this.allRounds.splice(roundIndex + this.showOffset, 1);
+            this.updateData();
+        }
+    }
+
 }
