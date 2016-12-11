@@ -83,6 +83,7 @@ export class ResultsComponent implements OnInit {
     finishEditing() {
         this.metricsService.rounds[this.editingRound.originalRoundIndex].copyFrom(this.editingRound.round);
         delete this.editingRound;
+        this.updateData();
     }
 
     cancelEditing() {

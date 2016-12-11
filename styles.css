@@ -1,11 +1,19 @@
+/* remove spinners from number input fields */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 /* app css stylesheet */
 
 :root {
   --colorbg: #001B57;
   --colorbg2: #26417D;
   --colorfont: #FFFFFF;
-  colorhl: #B33B00;
-  colorhl2: #8D1500;
+  --colorhl: #B33B00;
+  --colorhl2: #8D1500;
   font-size: 14px;
 }
 
@@ -49,8 +57,11 @@ body * {
 .results .throws {
   text-align: center;
 }
-.results input {
+.results .notecolumn input {
   width: 10rem;
+}
+.results .throws input {
+  width: 2rem;
 }
 
 .datecolumn, .notecolumn {

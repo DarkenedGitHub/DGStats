@@ -38,9 +38,9 @@
             </template>
             <template [ngIf]="editingRound?.originalRoundIndex === roundIndex">
                 <td><my-date-picker [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" [selDate]="editingRound.round.date | date:'dd.MM.yyyy'"></my-date-picker></td>
-                <td><input type="text" [(ngModel)]="editingRound.round.note" /></td>
-                <td *ngFor="let par of metricsService.course.pars; let holeIndex = index" [style.backgroundColor]="colorMapService.colorMap[roundIndex][holeIndex]" class="throws">
-                    {{round.throws[holeIndex]}}
+                <td class="notecolumn"><input type="text" [(ngModel)]="editingRound.round.note" /></td>
+                <td *ngFor="let par of metricsService.course.pars; let holeIndex = index" class="throws">
+                    <input type="number" [(ngModel)]="editingRound.round.throws[holeIndex]" />
                 </td>
                 <td>
                     <div class="btn btn-primary" (click)="finishEditing(roundIndex)"><span class="glyphicon glyphicon-ok"></span></div>
