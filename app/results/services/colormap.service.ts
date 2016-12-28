@@ -27,7 +27,7 @@ export class ColorMapService {
         this.colorMap = [];
         for (let roundIndex = 0; roundIndex < this.metricsService.rounds.length; roundIndex++) {
             this.colorMap[roundIndex] = [];
-            for (let holeIndex = 0; holeIndex < this.metricsService.course.length; holeIndex++) {
+            for (let holeIndex = 0; holeIndex < this.metricsService.course.pars.length; holeIndex++) {
                 let throws = this.metricsService.rounds[roundIndex].throws[holeIndex];
                 if (throws) {
                     this.colorMap[roundIndex][holeIndex] = this.calcColor(throws, holeIndex);

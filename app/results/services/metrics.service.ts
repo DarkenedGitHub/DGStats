@@ -2,15 +2,35 @@ import { Injectable } from "@angular/core";
 
 type Metric = (holeIndex: number, values: number[]) => number;
 
+export class Course {
+    constructor(public pars: number[]) { }
+}
+
 export class Round {
-    constructor(public date: Date, public note: string, public throws: number[]) { }
+    constructor(public course: Course, public date: Date, public note: string, public throws: number[]) { }
+
+    copy() : Round {
+        let throwsCopy: number[] = [];
+        for (let holeIndex = 0; holeIndex < this.course.pars.length; holeIndex++) {
+            throwsCopy[holeIndex] = this.throws[holeIndex];
+        }
+        return new Round(this.course, this.date, this.note, throwsCopy);
+    }
+
+    copyFrom(round: Round) {
+        this.course = round.course;
+        this.date = round.date;
+        this.note = round.note;
+        this.throws = round.throws;
+    }
+
 }
 
 @Injectable()
 export class MetricsService {
 
     private metrics: { [index: string]: Metric } = {};
-    course: number[] = [];
+    course: Course = new Course([]);
     rounds: Round[] = [];
     byHoleMetric : { [name: string] : number[] } = {};
 
@@ -37,11 +57,12 @@ export class MetricsService {
         this.byHoleMetric = {};
         for (let name in this.metrics) {
             this.byHoleMetric[name] = [];
-            for (let holeIndex = 0; holeIndex < this.course.length; holeIndex++) {
+            for (let holeIndex = 0; holeIndex < this.course.pars.length; holeIndex++) {
                 let validValues = this.rounds.map(round => round.throws[holeIndex]).filter(value => value);
                 this.byHoleMetric[name][holeIndex] = validValues.length > 0 ? this.metrics[name](holeIndex, validValues) : null;
             }
         }
+        this.byHoleMetric['par'] = this.course.pars;
     }
 
 }

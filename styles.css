@@ -1,17 +1,28 @@
+/* remove spinners from number input fields */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 /* app css stylesheet */
 
 :root {
   --colorbg: #001B57;
   --colorbg2: #26417D;
   --colorfont: #FFFFFF;
-  colorhl: #B33B00;
-  colorhl2: #8D1500;
+  --colorhl: #B33B00;
+  --colorhl2: #8D1500;
+  font-size: 14px;
 }
 
 body {
+  padding-top: 3rem;
+}
+body, input, mydp * {
   background-color: var(--colorbg);
   color: var(--colorfont);
-  padding-top: 3rem;
 }
 
 body * {
@@ -26,18 +37,35 @@ body * {
   background-color: var(--colorbg);
 }
 
-thead tr,
-tbody tr:nth-child(even) {
+.results thead tr,
+.results tbody tr:nth-child(even) {
   background-color: var(--colorbg2);
 }
 
-.table {
+.results {
   width: 0%;
   margin: 0.5rem;
 }
 
-.table .throws {
-  min-width: 3rem;
+.results thead tr th,
+.results tbody tr td {
+  min-width: 3.2rem;
+  height: 3.2rem;
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+.results .throws {
+  text-align: center;
+}
+.results .notecolumn input {
+  width: 10rem;
+}
+.results .throws input {
+  width: 2rem;
+}
+
+.datecolumn, .notecolumn {
+  width: 12rem;
 }
 
 .good {
