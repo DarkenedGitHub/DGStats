@@ -53,5 +53,10 @@
                 </td>
             </template>
         </tr>
+        <tr *ngIf="!editingRound">
+            <td colspan="3"></td>
+            <td [attr.colspan]="metricsService.course.pars.length"></td>
+            <td><div class="btn btn-primary" (click)="startCreating()"><span class="glyphicon glyphicon-plus"></span></div></td>
+        </tr>
     </tbody>
 </table>

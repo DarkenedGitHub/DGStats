@@ -47,6 +47,9 @@ export class ResultsComponent implements OnInit {
         for (let holeIndex = 0; holeIndex < 18; holeIndex++) {
             this.metricsService.course.pars.push(3);
         }
+        this.metricsService.course.pars.push(54);
+        this.metricsService.course.pars.push(27);
+        this.metricsService.course.pars.push(27);
         let resultsRef = this;
         this.allRounds = lineArray.map(function(line) {
             var values = line.split('\t');
@@ -95,6 +98,13 @@ export class ResultsComponent implements OnInit {
             this.allRounds.splice(roundIndex + this.showOffset, 1);
             this.updateData();
         }
+    }
+
+    startCreating() {
+        let newRound = new Round(this.metricsService.course, new Date(), '', []);
+        this.allRounds.push(newRound);
+        this.updateData();
+        this.startEditing(this.metricsService.rounds.length - 1);
     }
 
 }

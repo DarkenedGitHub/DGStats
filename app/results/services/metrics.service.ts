@@ -23,6 +23,7 @@ export class Round {
         this.note = round.note;
         this.throws = round.throws;
     }
+
 }
 
 @Injectable()
@@ -61,6 +62,7 @@ export class MetricsService {
                 this.byHoleMetric[name][holeIndex] = validValues.length > 0 ? this.metrics[name](holeIndex, validValues) : null;
             }
         }
+        this.byHoleMetric['par'] = this.course.pars;
     }
 
 }
