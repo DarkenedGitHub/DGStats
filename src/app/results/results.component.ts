@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MetricsService, Round, Course } from './services/metrics.service';
 import { ColorMapService } from './services/colormap.service';
 
@@ -20,24 +21,14 @@ export class ResultsComponent implements OnInit {
     loadTime: number;
     allRounds: Round[];
     editingRound: EditingRound;
-    myDatePickerOptions = {
-        dayLabels : {mo: 'Mo', tu: 'Di', we: 'Mi', th: 'Do', fr: 'Fr', sa: 'Sa', su: 'So'},
-        monthLabels : { 1: 'Jan', 2: 'Feb', 3: 'Mär', 4: 'Apr', 5: 'Mai', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Okt', 11: 'Nov', 12: 'Dez' },
-        dateFormat : 'dd.mm.yyyy',
-        todayBtnTxt : 'Heute',
-        height : '2rem',
-        width : '100%',
-        selectionTxtFontSize : '1rem',
-    };
 
-    constructor(private http: Http, private metricsService: MetricsService, private colorMapService: ColorMapService, @Inject('DGStatsStartTime') private starttime: number) {
-        this.loadTime = new Date().getTime() - starttime;
+    constructor(private http: Http, public metricsService: MetricsService, private colorMapService: ColorMapService) {
         this.allRounds = [];
         this.updateData();
     }
 
     ngOnInit() {
-        this.http.get('app/data/data.csv').subscribe(result => this.processCSVData(result));
+        this.http.get('./assets/data.csv').subscribe(result => this.processCSVData(result));
     }
 
     processCSVData(csvData: Response) {
@@ -55,7 +46,7 @@ export class ResultsComponent implements OnInit {
             var values = line.split('\t');
             return new Round(
                 resultsRef.metricsService.course,
-                new Date(values[1].split('.').reverse()),
+                new Date(values[1].split('.').reverse().join('.')),
                 values[2],
                 values.slice(4).map(strVal => strVal ? +strVal : null));
         });
