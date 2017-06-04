@@ -10,7 +10,7 @@ export class ColorMapService {
 
     }
 
-    calcColor(throws, holeIndex) {
+    calcColor(throws: number, holeIndex: number) {
         if (isNaN(throws)) {
             return '';
         }
