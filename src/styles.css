@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
 /* remove spinners from number input fields */
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -18,64 +20,52 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 body {
-  padding-top: 3rem;
-}
-body, input {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   background-color: var(--colorbg);
   color: var(--colorfont);
-}
-
-body * {
   font-size: 1rem;
 }
 
-.topbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 0.5rem;
-  background-color: var(--colorbg);
+nav,
+footer {
+  background-color: var(--colorbg2);
 }
 
-.results thead tr,
-.results tbody tr:nth-child(even) {
+
+#toolbar > * {
+  margin-right: 1.0rem;
+}
+.btn-primary.focus {
+  box-shadow: none;
+}
+.btn-primary {
+  background-color: var(--colorbg2);
+  color: var(--colorfont);
+  border-color: var(--colorfont);
+}
+.btn-primary.active,
+.btn-primary:hover {
+  background-color: var(--colorhl2);
+  border-color: var(--colorfont);
+}
+
+.results tr.headline,
+.results tr.metric {
   background-color: var(--colorbg2);
 }
 
 .results {
   width: 0%;
-  margin: 0.5rem;
 }
 
-.results thead tr th,
-.results tbody tr td {
-  min-width: 3.2rem;
-  height: 3.2rem;
+.results th,
+.results td {
+  min-width: 2.5rem;
+  height: 2.5rem;
   padding: 0.5rem;
   vertical-align: middle;
 }
 .results .throws {
   text-align: center;
-}
-.results .notecolumn input {
-  width: 10rem;
-}
-.results .throws input {
-  width: 2rem;
-}
-
-.datecolumn, .notecolumn {
-  width: 12rem;
-}
-
-.good {
-  background-color: green;
-}
-
-.bad {
-  background-color: red;
-}
-
-.best {
-  background-color: limegreen;
 }
