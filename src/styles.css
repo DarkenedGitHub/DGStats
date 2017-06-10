@@ -50,7 +50,8 @@ footer {
   border-color: var(--colorfont);
 }
 
-.results thead tr {
+.results tr.headline,
+.results tr.metric {
   background-color: var(--colorbg2);
 }
 
@@ -58,8 +59,8 @@ footer {
   width: 0%;
 }
 
-.results thead tr th,
-.results tbody tr td {
+.results th,
+.results td {
   min-width: 2.5rem;
   height: 2.5rem;
   padding: 0.5rem;

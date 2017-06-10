@@ -1,39 +1,39 @@
-<h1>{{course.name}}</h1>
+<h1>{{dataService.course.name}}</h1>
 <table class="results table table-bordered table-condensed">
     <thead>
-        <tr>
+        <tr class="headline">
             <th>#</th>
             <th>Datum</th>
             <th>Bemerkung</th>
-            <th *ngFor="let hole of course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+            <th *ngFor="let hole of dataService.course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+            <th *ngFor="let lineMetric of matrix.lineMetrics" class="throws">{{lineMetric}}</th>
         </tr>
-        <tr *ngFor="let metricLine of matrix.metricLines">
+        <tr *ngFor="let metricLine of matrix.metricLines" class="metric">
             <th></th>
             <th></th>
-            <th>{{metricLine.id}}</th>
-            <th *ngFor="let hole of course.holes; let holeIndex = index" class="throws">{{metricLine.cells[holeIndex] ? metricLine.cells[holeIndex].value : ''}}</th>
+            <th>{{metricLine.metricName}}</th>
+            <th *ngFor="let cell of metricLine.cells; let cellIndex = index" class="throws">{{cell | score:metricLine.fractionDigits}}</th>
         </tr>
     </thead>
     <tbody>
-        <ng-template ngFor let-round [ngForOf]="rounds" let-roundIndex="index">
-            <tr *ngIf="!configLimit || configLimit <= 0 || configLimit >= rounds.length - roundIndex">
-                <td>{{roundIndex + 1}}</td>
-                <td>{{round.date | date:'dd.MM.yyyy'}}</td>
-                <td>{{round.comment}}</td>
-                <td *ngFor="let hole of course.holes; let holeIndex = index" class="throws" [style.background-color]="colorMap[roundIndex] && colorMap[roundIndex][holeIndex] ? colorMap[roundIndex][holeIndex] : ''">
-                    {{round.scores[holeIndex]?.throws}}
+        <ng-template ngFor let-roundLine [ngForOf]="matrix.roundLines" let-roundIndex="index">
+            <tr>
+                <td>{{matrix.roundOffset + roundIndex + 1}}</td>
+                <td>{{roundLine.round.date | date:'dd.MM.yyyy'}}</td>
+                <td>{{roundLine.round.comment}}</td>
+                <td *ngFor="let cell of roundLine.cells; let cellIndex = index" class="throws" [style.background-color]="colorMap[roundIndex] && colorMap[roundIndex][cellIndex] ? colorMap[roundIndex][cellIndex] : ''">
+                    {{cell}}
                 </td>
+            </tr>
+            <tr *ngIf="roundIndex % 10 === 9 && roundIndex > 0" class="headline">
+                <th>#</th>
+                <th>Datum</th>
+                <th>Bemerkung</th>
+                <th *ngFor="let hole of dataService.course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+                <th *ngFor="let lineMetric of matrix.lineMetrics" class="throws">{{lineMetric}}</th>
             </tr>
         </ng-template>
     </tbody>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Datum</th>
-            <th>Bemerkung</th>
-            <th *ngFor="let hole of course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
-        </tr>
-    </thead>
 </table>
 
 <footer class="navbar navbar-toggleable-sm navbar-inverse fixed-bottom">
@@ -41,18 +41,18 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="toolbar">
-        <div [(ngModel)]="configLimit" ngbRadioGroup>
+        <div [(ngModel)]="configLimit" (ngModelChange)="updateMatrix()" ngbRadioGroup>
             <label class="btn btn-primary"><input type="radio" [value]="5">5</label>
             <label class="btn btn-primary"><input type="radio" [value]="10">10</label>
             <label class="btn btn-primary"><input type="radio" [value]="25">25</label>
-            <label class="btn btn-primary"><input type="radio" [value]="-1">all</label>
+            <label class="btn btn-primary"><input type="radio" [value]="dataService.rounds.length">all</label>
         </div>
-        <div [(ngModel)]="configColorScheme" (ngModelChange)="updateColorMap()" ngbRadioGroup>
+        <div [(ngModel)]="configColorScheme" (ngModelChange)="updateMatrix()" ngbRadioGroup>
             <label class="btn btn-primary"><input type="radio" value="none">none</label>
             <label class="btn btn-primary"><input type="radio" value="par">to Par</label>
-            <label class="btn btn-primary"><input type="radio" value="newbest">new best</label>
-            <label class="btn btn-primary"><input type="radio" value="best">best</label>
+            <label class="btn btn-primary"><input type="radio" value="minmax">min/max</label>
             <label class="btn btn-primary"><input type="radio" value="relative">relative</label>
+            <label class="btn btn-primary"><input type="radio" value="smooth">smooth</label>
         </div>
     </div>
 </footer>

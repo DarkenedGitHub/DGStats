@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
     templateUrl: 'input.component.html'
 })
 export class InputComponent {
+
+    rawData: string;
+
+    doUpdate() {
+        console.log("test");
+    }
 
 }

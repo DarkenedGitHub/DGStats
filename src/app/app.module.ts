@@ -1,15 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { ScorePipe } from './pipes/score.pipe';
 
 import { AppComponent }  from './app.component';
 import { InputComponent } from './input/input.component';
 import { ResultsComponent } from './results/results.component';
 
-import { ColorMapService } from './results/colormap.service';
+import { DataService } from './data/data.service';
 
 const appRoutes : Routes =  [
   { path: '', redirectTo: 'results', pathMatch: 'full' },
@@ -20,6 +24,7 @@ const appRoutes : Routes =  [
 
 @NgModule({
   declarations: [
+    ScorePipe,
     AppComponent,
     ResultsComponent,
     InputComponent
@@ -32,7 +37,8 @@ const appRoutes : Routes =  [
     NgbModule.forRoot()
   ],
   providers: [ 
-    ColorMapService
+    DataService,
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })
