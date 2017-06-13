@@ -4,16 +4,18 @@ import { Hole, Course, Score, Round } from './model';
 @Injectable()
 export class DataService {
 
+    public courses: Course[] = [];
+
     public course: Course = new Course('dummy');
     public rounds: Round[] = [];
 
-    public processCSVData(csvData: string) {
-        var lineArray = csvData.split('\r\n');
-
+    constructor() {
         this.course = this.createWestpark();
+        this.courses.push(this.course);
+    }
 
-        let resultsRef = this;
-        this.rounds = lineArray.map(this.lineToRound);
+    public processCSVData(csvData: string) {
+        this.rounds = csvData.split('\r\n').map(this.lineToRound);
     }
 
     private lineToRound = line => {
@@ -32,6 +34,15 @@ export class DataService {
             westpark.holes.push(new Hole(3));
         }
         return westpark;
+    }
+
+    public holeIndexRange(): number[] {
+        var range = [];
+        let max = this.courses.map(course => course.holes.length).reduce((a, b) => a > b ? a : b);
+        for (var index = 0; index < max; index++) {
+            range.push(index);
+        }
+        return range;
     }
 
 }

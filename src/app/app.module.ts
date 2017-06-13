@@ -11,6 +11,7 @@ import { ScorePipe } from './pipes/score.pipe';
 
 import { AppComponent }  from './app.component';
 import { InputComponent } from './input/input.component';
+import { CoursesComponent } from './courses/courses.component';
 import { ResultsComponent } from './results/results.component';
 
 import { DataService } from './data/data.service';
@@ -18,6 +19,7 @@ import { DataService } from './data/data.service';
 const appRoutes : Routes =  [
   { path: '', redirectTo: 'results', pathMatch: 'full' },
   { path: 'results', component: ResultsComponent },
+  { path: 'courses', component: CoursesComponent },
   { path: 'input', component: InputComponent },
   { path: '**', redirectTo: 'results' }
 ];
@@ -27,6 +29,7 @@ const appRoutes : Routes =  [
     ScorePipe,
     AppComponent,
     ResultsComponent,
+    CoursesComponent,
     InputComponent
   ],
   imports: [
