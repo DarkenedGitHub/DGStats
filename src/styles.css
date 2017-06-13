@@ -13,6 +13,7 @@ input[type=number]::-webkit-outer-spin-button {
 :root {
   --colorbg: #001B57;
   --colorbg2: #26417D;
+  --colorinactive: #525252;
   --colorfont: #FFFFFF;
   --colorhl: #B33B00;
   --colorhl2: #8D1500;
@@ -28,44 +29,59 @@ body {
 }
 
 nav,
-footer {
+footer,
+tr.headline,
+tr.metric,
+input {
   background-color: var(--colorbg2);
 }
 
-
 #toolbar > * {
-  margin-right: 1.0rem;
+  margin-right: 1.5rem;
 }
-.btn-primary.focus {
-  box-shadow: none;
+#toolbar button {
+  margin-right: 0.25rem;
 }
+
 .btn-primary {
   background-color: var(--colorbg2);
   color: var(--colorfont);
   border-color: var(--colorfont);
+}
+.btn-primary.focus {
+  box-shadow: none;
 }
 .btn-primary.active,
 .btn-primary:hover {
   background-color: var(--colorhl2);
   border-color: var(--colorfont);
 }
-
-.results tr.headline,
-.results tr.metric {
-  background-color: var(--colorbg2);
+.btn-primary:disabled {
+  background-color: var(--colorinactive);
+  border-color: var(--colorfont);
 }
 
-.results {
+.table {
   width: 0%;
 }
-
-.results th,
-.results td {
+th, 
+td {
   min-width: 2.5rem;
   height: 2.5rem;
   padding: 0.5rem;
   vertical-align: middle;
 }
-.results .throws {
+.throws {
   text-align: center;
+}
+.throws >*:not(button) {
+  margin: 0.5rem;
+}
+
+input {
+  color: var(--colorfont);
+  padding: 0.5rem;
+  width: 20rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--colorfont);
 }

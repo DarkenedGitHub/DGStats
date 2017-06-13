@@ -17,7 +17,7 @@ export class ResultsComponent implements OnInit {
     public configLimit: number = 10;
     public configColorScheme: string = 'none';
 
-    constructor(private http: Http, private dataService: DataService) {
+    constructor(private http: Http, public dataService: DataService) {
     }
 
     ngOnInit() {
