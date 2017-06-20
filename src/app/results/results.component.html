@@ -1,11 +1,19 @@
-<h1>{{dataService.course.name}}</h1>
-<table class="table table-bordered table-condensed">
+<h1>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i></button>
+      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+        <button *ngFor="let course of dataService.courses" (click)="changeToCourse(course)" class="dropdown-item">{{course.name}}</button>
+      </div>
+    </div>
+    {{course ? course.name : ''}}
+</h1>
+<table class="table table-bordered table-condensed" *ngIf="course">
     <thead>
         <tr class="headline">
             <th>#</th>
             <th>Datum</th>
             <th>Bemerkung</th>
-            <th *ngFor="let hole of dataService.course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+            <th *ngFor="let hole of course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
             <th *ngFor="let lineMetric of matrix.lineMetrics" class="throws">{{lineMetric}}</th>
         </tr>
         <tr *ngFor="let metricLine of matrix.metricLines" class="metric">
@@ -29,7 +37,7 @@
                 <th>#</th>
                 <th>Datum</th>
                 <th>Bemerkung</th>
-                <th *ngFor="let hole of dataService.course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+                <th *ngFor="let hole of course.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
                 <th *ngFor="let lineMetric of matrix.lineMetrics" class="throws">{{lineMetric}}</th>
             </tr>
         </ng-template>
@@ -40,12 +48,12 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="toolbar">
+    <div class="collapse navbar-collapse" id="toolbar" *ngIf="rounds">
         <div [(ngModel)]="configLimit" (ngModelChange)="updateMatrix()" ngbRadioGroup>
             <label class="btn btn-primary"><input type="radio" [value]="5">5</label>
             <label class="btn btn-primary"><input type="radio" [value]="10">10</label>
             <label class="btn btn-primary"><input type="radio" [value]="25">25</label>
-            <label class="btn btn-primary"><input type="radio" [value]="dataService.rounds.length">all</label>
+            <label class="btn btn-primary"><input type="radio" [value]="rounds.length">all</label>
         </div>
         <div [(ngModel)]="configColorScheme" (ngModelChange)="updateMatrix()" ngbRadioGroup>
             <label class="btn btn-primary"><input type="radio" value="none">none</label>
