@@ -12,7 +12,7 @@ export class CoursesComponent {
 
     public newCourse: Course;
 
-    constructor(private dataService: DataService) { this.startCreating(); }
+    constructor(private dataService: DataService) { }
 
     public startCreating() {
         this.newCourse = new Course('');
@@ -24,6 +24,7 @@ export class CoursesComponent {
     public finishCreating() {
         this.dataService.courses.push(this.newCourse);
         this.newCourse = null;
+        this.dataService.save();
     }
 
     public addHole() {
@@ -52,7 +53,8 @@ export class CoursesComponent {
     }
 
     public newCourseIsValid() {
-        return this.newCourse.name && 
+        return this.newCourse.name &&
+            !this.dataService.courses.find(course => course.name === this.newCourse.name) &&
             this.newCourse.holes && 
             this.newCourse.holes.length >= 9 && this.newCourse.holes.length <= 18 &&
             this.newCourse.holes.map(hole => hole.par).reduce((a, b) => Math.min(a, b)) >= 3 &&

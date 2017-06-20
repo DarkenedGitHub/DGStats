@@ -60,7 +60,7 @@ export class Matrix {
             this.roundLines.push(line);            
             for (var holeIndex = 0; holeIndex < this.course.holes.length; holeIndex++) {
                 var hole = this.course.holes[holeIndex];
-                var score = round.scores.filter(score => score).find(score => score.hole === hole);
+                var score = round.scores[holeIndex];
                 line.cells.push(score ? score.throws : null);
             }
         }

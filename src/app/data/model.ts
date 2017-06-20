@@ -8,13 +8,12 @@ export class Hole {
 export class Course {
     constructor(
         public name: string,
-        public holes: Hole[] = []
+        public holes: Hole[] = [],
     ) {}
 }
 
 export class Score {
     constructor(
-        public hole: Hole,
         public throws: number,
         public comment?: string
     ) {}
@@ -22,6 +21,7 @@ export class Score {
 
 export class Round {
     constructor(
+        public courseName: string,
         public date: Date,
         public scores: Score[],
         public comment?: string

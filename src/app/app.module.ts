@@ -13,15 +13,18 @@ import { AppComponent }  from './app.component';
 import { InputComponent } from './input/input.component';
 import { CoursesComponent } from './courses/courses.component';
 import { ResultsComponent } from './results/results.component';
+import { DataComponent } from './data/data.component';
 
 import { DataService } from './data/data.service';
+import { ImportService } from './data/import.service';
 
 const appRoutes : Routes =  [
   { path: '', redirectTo: 'results', pathMatch: 'full' },
   { path: 'results', component: ResultsComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'input', component: InputComponent },
-  { path: '**', redirectTo: 'results' }
+  { path: 'data', component: DataComponent },
+  { path: '**', redirectTo: 'results' },
 ];
 
 @NgModule({
@@ -30,19 +33,21 @@ const appRoutes : Routes =  [
     AppComponent,
     ResultsComponent,
     CoursesComponent,
-    InputComponent
+    InputComponent,
+    DataComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
   ],
   providers: [ 
     DataService,
-    DecimalPipe
+    ImportService,
+    DecimalPipe,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
