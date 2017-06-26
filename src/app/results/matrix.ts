@@ -39,7 +39,12 @@ export class Matrix {
     public metricLines: MetricLine[] = [];
     public lineMetrics: string[] = [];
 
-    constructor(private rounds: Round[], private course: Course, public roundOffset: number = 0) {
+    constructor(
+        private rounds: Round[],
+        private course: Course,
+        public roundOffset: number = 0,
+    ) {
+        this.roundOffset = Math.max(this.roundOffset, 0);
         this.recalculate();
     }
 
