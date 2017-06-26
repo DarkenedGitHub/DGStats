@@ -6,7 +6,7 @@ import { Hole, Course, Score, Round } from './model';
 export class DataService {
 
     public courses: Course[];
-    rounds: Round[];
+    private rounds: Round[];
 
     constructor() {
         this.load();

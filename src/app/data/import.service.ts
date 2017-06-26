@@ -19,7 +19,7 @@ export class ImportService {
     private processCSVData(csvData: string) {
         var course = this.createWestpark();
         this.dataService.courses = [course];
-        this.dataService.rounds = csvData.split('\r\n').map(line => this.processCSVLine(line, course.holes));
+        csvData.split('\r\n').map(line => this.processCSVLine(line, course.holes)).forEach(round => this.dataService.addRound(round));
     }
 
     private processCSVLine = (line, holes) => {

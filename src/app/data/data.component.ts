@@ -11,8 +11,8 @@ import { ImportService } from './import.service';
 export class DataComponent {
 
     constructor(
-        private dataService: DataService,
-        private importService: ImportService,
+        public dataService: DataService,
+        public importService: ImportService,
     ) {}
     
 }

@@ -12,8 +12,8 @@ import { ColorMapUtils } from './colormap';
 })
 export class ResultsComponent {
 
-    private course: Course;
-    private rounds: Round[];
+    public course: Course;
+    public rounds: Round[];
     private matrix: Matrix;
     private colorMap: string[][] = [];
     public configLimit: number = 10;
