@@ -1,1 +1,73 @@
-<textarea type="text" cols="10" rows="1" [ngModel]="rawData" (ngModelChange)="doUpdate()"></textarea>
+<div *ngIf="round; then inputRound; else selectCourse"></div>
+
+<ng-template #selectCourse>
+    <h1>Create new Round</h1>
+    <div ngbDropdown class="paragraph">
+        <button class="btn btn-primary" ngbDropdownToggle>{{selectedCourse ? selectedCourse.name : 'Select Course'}}</button>
+        <div class="dropdown-menu">
+            <button *ngFor="let course of dataService.courses" (click)="selectedCourse = course" class="dropdown-item">{{course.name}}</button>
+        </div>
+    </div>
+    <div class="paragraph">
+    <button class="btn btn-primary" [class.active]="showDatePicker" (click)="showDatePicker = !showDatePicker">{{dateStructToDate(selectedDate) | date : 'dd.MM.yyyy'}}</button>
+    <div [ngbCollapse]="!showDatePicker">
+        <ngb-datepicker #dp [(ngModel)]="selectedDate" (ngModelChange)="showDatePicker = !showDatePicker"></ngb-datepicker>
+    </div>
+    </div>
+    <button class="btn btn-primary paragraph" [disabled]="!selectedDate || !selectedCourse" (click)="startInput()">Start</button>
+</ng-template>
+
+<ng-template #inputRound>
+    <h1>Entering Score</h1>
+    <div class="paragraph">
+        <div>Course: {{round.courseName}}</div>
+        <div>Date: {{round.date | date : 'dd.MM.yyyy'}}</div>
+        <div>Hole: {{currentHoleIndex + 1}}</div>
+    </div>
+
+    <table class="table table-bordered table-condensed paragraph">
+        <tr class="headline">
+            <td></td>
+            <td><button class="btn btn-primary" (click)="incScore()"><i class="fa fa-plus"></i></button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button class="btn btn-primary" [disabled]="currentHoleIndex <= 0" (click)="prevHole()"><i class="fa fa-chevron-left"></i></button></td>
+            <td class="round-input-column"><button class="btn btn-primary" (click)="toggleScore()">
+                <span *ngIf="round.scores[currentHoleIndex]">{{round.scores[currentHoleIndex].throws}}</span>
+                <i *ngIf="!round.scores[currentHoleIndex]" class="fa fa-ellipsis-h"></i>
+            </button></td>
+            <td><button class="btn btn-primary"[disabled]="currentHoleIndex >= selectedCourse.holes.length - 1" (click)="nextHole()"><i class="fa fa-chevron-right"></i></button></td>
+        </tr>
+        <tr class="headline">
+            <td></td>
+            <td><button class="btn btn-primary" [disabled]="round.scores[currentHoleIndex] && round.scores[currentHoleIndex].throws <= 1" (click)="decScore()"><i class="fa fa-minus"></i></button></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered table-condensed paragraph">
+        <tr class="headline">
+            <th *ngFor="let hole of selectedCourse.holes; let holeIndex = index" class="throws">{{holeIndex + 1}}</th>
+        </tr>
+        <tr>
+            <td *ngFor="let hole of selectedCourse.holes; let holeIndex = index" class="throws" [style.background-color]="calcColor(holeIndex)">
+                <span *ngIf="round.scores[holeIndex]">{{round.scores[holeIndex].throws}}</span>
+                <i *ngIf="!round.scores[holeIndex]">&nbsp;&nbsp;</i>
+            </td>
+        </tr>
+    </table>
+
+    <footer class="navbar navbar-toggleable-sm navbar-inverse fixed-bottom">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="toolbar">
+            <div>
+                <button class="btn btn-primary" (click)="saveRound()"><i class="fa fa-check"></i> save</button>
+                <button class="btn btn-primary" (click)="round = null"><i class="fa fa-ban"></i> cancel</button>
+            </div>
+        </div>
+    </footer>
+    
+</ng-template>

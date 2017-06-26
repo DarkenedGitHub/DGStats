@@ -1,7 +1,7 @@
 <h1>
     <div ngbDropdown class="d-inline-block">
-      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fa fa-list"></i></button>
-      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+      <button class="btn btn-primary" ngbDropdownToggle><i class="fa fa-list"></i></button>
+      <div class="dropdown-menu">
         <button *ngFor="let course of dataService.courses" (click)="changeToCourse(course)" class="dropdown-item">{{course.name}}</button>
       </div>
     </div>
@@ -44,7 +44,7 @@
     </tbody>
 </table>
 
-<footer class="navbar navbar-toggleable-sm navbar-inverse fixed-bottom">
+<footer class="navbar navbar-toggleable-xl navbar-inverse fixed-bottom">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#toolbar">
         <span class="navbar-toggler-icon"></span>
     </button>

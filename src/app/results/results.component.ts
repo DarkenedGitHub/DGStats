@@ -12,8 +12,8 @@ import { ColorMapUtils } from './colormap';
 })
 export class ResultsComponent {
 
-    private course: Course;
-    private rounds: Round[];
+    public course: Course;
+    public rounds: Round[];
     private matrix: Matrix;
     private colorMap: string[][] = [];
     public configLimit: number = 10;
@@ -27,7 +27,7 @@ export class ResultsComponent {
 
     updateMatrix() {
         let startTime = new Date().getTime();
-        this.matrix = new Matrix(this.rounds, this.course, this.dataService.rounds.length - this.configLimit);
+        this.matrix = new Matrix(this.rounds, this.course, this.rounds.length - this.configLimit);
         this.colorMap = ColorMapUtils.createColorMap(this.configColorScheme, this.matrix);
         let endTime = new Date().getTime();
         console.log('update took: ', endTime - startTime, 'ms');

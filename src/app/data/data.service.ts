@@ -6,7 +6,7 @@ import { Hole, Course, Score, Round } from './model';
 export class DataService {
 
     public courses: Course[];
-    rounds: Round[];
+    private rounds: Round[];
 
     constructor() {
         this.load();
@@ -23,6 +23,10 @@ export class DataService {
 
     public roundsForCourse(course: Course) {
         return this.rounds.filter(round => round.courseName === course.name);
+    }
+
+    public addRound(round: Round) {
+        this.rounds.push(round);
     }
 
     public save() {
