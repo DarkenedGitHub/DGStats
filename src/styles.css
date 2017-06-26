@@ -48,7 +48,7 @@ input {
   color: var(--colorfont);
   border-color: var(--colorfont);
 }
-.btn-primary.focus {
+.btn-primary:focus {
   box-shadow: none;
 }
 .btn-primary.active,
@@ -84,4 +84,19 @@ input {
   width: 20rem;
   border-radius: 0.25rem;
   border: 1px solid var(--colorfont);
+}
+
+.paragraph {
+  margin-bottom: 1rem;
+}
+
+ngb-datepicker {
+  background-color: white;
+}
+
+.round-input-column {
+  width: 5rem;
+}
+.table button {
+  width: 100%;
 }

@@ -25,6 +25,10 @@ export class DataService {
         return this.rounds.filter(round => round.courseName === course.name);
     }
 
+    public addRound(round: Round) {
+        this.rounds.push(round);
+    }
+
     public save() {
         localStorage.setItem('courses', JSON.stringify(this.courses));
         localStorage.setItem('rounds', JSON.stringify(this.rounds));
