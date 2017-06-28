@@ -30,13 +30,20 @@ export class DataService {
     }
 
     public save() {
-        localStorage.setItem('courses', JSON.stringify(this.courses));
-        localStorage.setItem('rounds', JSON.stringify(this.rounds));
+        localStorage.setItem('data', JSON.stringify(this));
     }
 
-    public load() {
-        this.courses = localStorage.getItem('courses') ? JSON.parse(localStorage.getItem('courses')) : [];
-        this.rounds = localStorage.getItem('rounds') ? JSON.parse(localStorage.getItem('rounds')) : [];
+    public load(rawData?: any) {
+        if (!rawData) {
+            rawData = localStorage.getItem('data');
+        }
+        if (rawData) {
+            let data = JSON.parse(rawData);
+            this.courses = data.courses;
+            this.rounds = data.rounds;
+        } else {
+            this.clear();
+        }
     }
 
     public clear() {

@@ -1,18 +1,21 @@
 <nav class="navbar navbar-toggleable-xl navbar-inverse fixed-top">
-  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-toggle="collapse" data-target="#navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" routerLink="/">DGStats</a>
-  <div class="collapse navbar-collapse" [ngbCollapse]="isNavbarCollapsed" id="navigation">
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link" routerLink="/results">Results</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/courses">Courses</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/input">Input</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/data">Data</a></li>
-    </ul>
-  </div>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/">DGStats</a>
+    <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" routerLink="/results">Results</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/courses">Courses</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/input">Input</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/data">Data</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container-fluid">
-  <router-outlet></router-outlet>
+    <div *ngFor="let alert of alertService.alerts">
+        <ngb-alert [type]="alert.type" (close)="alertService.closeAlert(alert)">{{alert.message}}</ngb-alert>
+    </div>
+    <router-outlet></router-outlet>
 </div>
