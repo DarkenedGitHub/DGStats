@@ -1,4 +1,4 @@
-Vue.component("results", {
+Vue.component("result-table", {
     template: `
         <table class="table table-bordered table-condensed">
             <tr class="headline">
@@ -8,12 +8,12 @@ Vue.component("results", {
                 <td v-for="(par, holeIndex) in course.pars" class="throws">{{ holeIndex + 1 }}</td>
                 <td v-for="rowMetric in rowMetricNames">{{ rowMetric }}</td>
             </tr>
-            <tr class="headline" v-for="metric in ['par', 'min', 'avg', 'max']">
+            <tr class="metric" v-for="metric in ['par', 'min', 'avg', 'max']">
                 <td></td>
                 <td></td>
                 <td>{{ metric }}</td>
                 <td v-for="(par, holeIndex) in course.pars" class="throws">{{ columnMetrix[holeIndex][metric] }}</td>
-                <td v-for="(rowMetric, rowMetricIndex) in rowMetricNames">{{ columnMetrix[holeCount + rowMetricIndex][metric] }}</td>
+                <td v-for="(rowMetric, rowMetricIndex) in rowMetricNames" class="throws">{{ columnMetrix[holeCount + rowMetricIndex][metric] }}</td>
             </tr>
             <tr v-for="(round, roundIndex) in rounds">
                 <td>{{ roundIndex + 1 }}</td>
@@ -61,19 +61,5 @@ Vue.component("results", {
             }
             return allMetrix;
         },
-    }
-});
-
-Vue.component("colored-cell", {
-    template: `
-        <td class="throws" :style="{ backgroundColor: calculatedColor}">
-            {{ score }}
-        </td>
-    `,
-    props: ['score', 'metrix', 'scheme'],
-    computed: {
-        calculatedColor: function() {
-            return DGSTATS.colors.calcColor(this.scheme, this.metrix, this.score);
-        }
     }
 });

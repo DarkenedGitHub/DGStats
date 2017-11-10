@@ -1,6 +1,6 @@
 DGSTATS.import.reset();
 
-var app = new Vue({
+new Vue({
     el: '#app',
     data: {
         course: DGSTATS.import.data.course,
