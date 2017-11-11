@@ -10,53 +10,38 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/styles.css">
 
-    <script src="lib/vue.js"></script>
-    <script src="lib/lodash.js"></script>
+    <script src="lib/vue.min.js"></script>
+    <script src="lib/lodash.min.js"></script>
     <script src="lib//axios.min.js"></script>
 
+    <script src="app/util/router.js"></script>
     <script src="app/util/import.js"></script>
     <script src="app/util/calc.js"></script>
     <script src="app/util/colors.js"></script>
-    <script src="app/result/result.js"></script>
+
+    <script src="app/component/routerlink.js"></script>
+    <script src="app/result/coloredCell.js"></script>
+    <script src="app/result/resultTable.js"></script>
+    <script src="app/result/results.js"></script>
+    <script src="app/config/config.js"></script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-toggleable-xl navbar-inverse fixed-top">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" routerLink="/">DGStats</a>
-        <div class="collapse navbar-collapse" id="navigation">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/results">Results</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/courses">Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/input">Input</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/data">Data</a>
-                </li>
-            </ul>
+    <nav id="nav" class="navbar navbar-expand navbar-inverse fixed-top">
+        <router-link class="navbar-brand" component="results">DGStats</router-link>
+        <div class="navbar-nav">
+            <router-link class="nav-item nav-link" component="results">Results</router-link>
+            <router-link class="nav-item nav-link" component="config">Config</router-link>
         </div>
     </nav>
 
-    <div id="app" class="container-fluid">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary" v-for="schemeName in colorSchemes" :class="{ active: colorScheme === schemeName }">
-                <input type="radio" name="schemeName" :value="schemeName" v-model="colorScheme">{{ schemeName }}
-            </label>
-        </div>
-        <h1>{{ course.name }}</h1>
-        <results 
-            :course="course"
-            :rounds="rounds"
-            :color-scheme="colorScheme">
-        </results>
+    <div id="app">
+        <keep-alive>
+            <component :is="router.currentRoute">
+                <!-- inactive components will be cached! -->
+            </component>
+        </keep-alive>
     </div>
 
     <script src="app/app.js"></script>

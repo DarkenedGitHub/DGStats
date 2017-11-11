@@ -36,6 +36,13 @@ input {
   background-color: var(--colorbg2);
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+  color: var(--colorfont);
+}
+
 #toolbar > * {
   margin-right: 1.5rem;
 }
@@ -44,21 +51,17 @@ input {
 }
 
 .btn-primary {
-  background-color: var(--colorbg2);
+  background-color: var(--colorbg2) !important;
   color: var(--colorfont);
-  border-color: var(--colorfont);
-}
-.btn-primary.focus {
-  box-shadow: none;
+  border-color: var(--colorfont) !important;
+  box-shadow: none !important;
 }
 .btn-primary.active,
 .btn-primary:hover {
-  background-color: var(--colorhl2);
-  border-color: var(--colorfont);
+  background-color: var(--colorhl2) !important;
 }
 .btn-primary:disabled {
   background-color: var(--colorinactive);
-  border-color: var(--colorfont);
 }
 
 .table {

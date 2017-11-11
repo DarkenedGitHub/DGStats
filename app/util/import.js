@@ -5,7 +5,7 @@ DGSTATS.import = (function() {
     var data = {
         course: {
             name: "Westpark",
-            pars: _.range(18).map(index => 3)
+            pars: _.range(18).map(() => 3)
         },
         rounds: []
     }
