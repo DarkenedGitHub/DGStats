@@ -20,10 +20,12 @@
     <script src="app/util/colors.js"></script>
 
     <script src="app/component/routerlink.js"></script>
-    <script src="app/result/coloredCell.js"></script>
-    <script src="app/result/resultTable.js"></script>
-    <script src="app/result/results.js"></script>
-    <script src="app/config/config.js"></script>
+
+    <script src="app/screens/result/coloredCell.js"></script>
+    <script src="app/screens/result/resultTable.js"></script>
+    <script src="app/screens/result/results.js"></script>
+    <script src="app/screens/course/courses.js"></script>
+    <script src="app/screens/config/config.js"></script>
 </head>
 
 <body>
@@ -32,6 +34,7 @@
         <router-link class="navbar-brand" component="results">DGStats</router-link>
         <div class="navbar-nav">
             <router-link class="nav-item nav-link" component="results">Results</router-link>
+            <router-link class="nav-item nav-link" component="courses">Courses</router-link>
             <router-link class="nav-item nav-link" component="config">Config</router-link>
         </div>
     </nav>

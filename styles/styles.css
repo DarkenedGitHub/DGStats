@@ -30,8 +30,8 @@ body {
 
 nav,
 footer,
-tr.headline,
-tr.metric,
+.headline,
+.metric,
 input {
   background-color: var(--colorbg2);
 }

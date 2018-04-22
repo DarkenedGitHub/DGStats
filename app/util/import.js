@@ -2,7 +2,22 @@ var DGSTATS = DGSTATS || {};
 
 DGSTATS.import = (function() {
     
-    var data = {
+    let courses = [
+        {
+            name: "Westpark",
+            pars: _.range(18).map(() => 3)
+        },
+        {
+            name: "Bürgerpark (rot)",
+            pars: [3, 3, 3, 3, 3, 3, 4, 3, 3 ]
+        },
+        {
+            name: "Bürgerpark (blau)",
+            pars: [3, 3, 3, 3, 3, 5, 3, 3, 4, 3, 3, 3, 3, 3, 3 ]
+        },
+    ];
+
+    let data = {
         course: {
             name: "Westpark",
             pars: _.range(18).map(() => 3)
@@ -10,7 +25,7 @@ DGSTATS.import = (function() {
         rounds: []
     }
 
-    var reset = function() {
+    function reset() {
         axios.get('data.csv').then(function(response) {
             var rawData = response.data;
             var lines = rawData.split('\n');
@@ -30,6 +45,7 @@ DGSTATS.import = (function() {
 
     return {
         data: data,
+        courses: courses,
         reset: reset
     }
     
